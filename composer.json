@@ -1,0 +1,8 @@
+{
+    "name": "louenn/onemorerep",
+    "description": "OneMoreRep - Site de musculation avec calculateur TDEE",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
