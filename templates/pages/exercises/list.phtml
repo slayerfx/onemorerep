@@ -1,0 +1,36 @@
+<section class="exercises-header">
+    <h1>Bibliothèque d'exercices</h1>
+    <p>26 exercices répartis en 6 groupes musculaires. Filtre par groupe pour trouver ton exercice.</p>
+</section>
+
+<section class="exercises-filters">
+    <button class="filter-btn active" data-group="all">Tous</button>
+    <button class="filter-btn" data-group="1">Pectoraux</button>
+    <button class="filter-btn" data-group="2">Dos</button>
+    <button class="filter-btn" data-group="3">Jambes</button>
+    <button class="filter-btn" data-group="4">Épaules</button>
+    <button class="filter-btn" data-group="5">Bras</button>
+    <button class="filter-btn" data-group="6">Abdos</button>
+</section>
+
+<section class="exercises-grid">
+    <?php $badges = ['Débutant' => 'beginner', 'Intermédiaire' => 'intermediate', 'Avancé' => 'advanced']; ?>
+    <?php foreach ($data["exercises"] as $exercise) : ?>
+        <a href="index.php?route=show-exercise&id=<?= $exercise->getId() ?>" class="exercise-card">
+            <div class="exercise-card-img">
+                <img src="assets/images/exercises/<?= htmlspecialchars($exercise->getImage()) ?>" alt="<?= htmlspecialchars($exercise->getName()) ?>" loading="lazy">
+            </div>
+            <div class="exercise-card-text">
+                <h3><?= htmlspecialchars($exercise->getName()) ?></h3>
+                <div class="exercise-card-meta">
+                    <span class="exercise-group"><?= htmlspecialchars($exercise->getMuscleGroup()->getName()) ?></span>
+                    <span class="badge badge-<?= $badges[$exercise->getDifficulty()] ?>">
+                        <?= htmlspecialchars($exercise->getDifficulty()) ?>
+                    </span>
+                </div>
+            </div>
+        </a>
+    <?php endforeach; ?>
+</section>
+
+<script src="assets/js/filters.js"></script>

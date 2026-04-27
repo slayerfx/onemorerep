@@ -1,0 +1,37 @@
+<?php $badges = ['Débutant' => 'beginner', 'Intermédiaire' => 'intermediate', 'Avancé' => 'advanced']; ?>
+<?php $exercise = $data["exercise"]; ?>
+
+<section class="exercise-detail">
+    <div class="exercise-detail-content">
+        <div class="exercise-detail-img">
+            <img src="assets/images/exercises/<?= htmlspecialchars($exercise->getImage()) ?>" alt="<?= htmlspecialchars($exercise->getName()) ?>" loading="lazy">
+        </div>
+
+        <div class="exercise-detail-info">
+            <h1><?= htmlspecialchars($exercise->getName()) ?></h1>
+
+            <div class="exercise-detail-meta">
+                <span class="exercise-group"><?= htmlspecialchars($exercise->getMuscleGroup()->getName()) ?></span>
+                <span class="badge badge-<?= $badges[$exercise->getDifficulty()] ?>">
+                    <?= htmlspecialchars($exercise->getDifficulty()) ?>
+                </span>
+            </div>
+
+            <h2>Description</h2>
+            <p class="exercise-detail-desc"><?= htmlspecialchars($exercise->getDescription()) ?></p>
+
+            <div class="exercise-detail-table">
+                <div class="exercise-detail-row">
+                    <span>Groupe musculaire</span>
+                    <span><?= htmlspecialchars($exercise->getMuscleGroup()->getName()) ?></span>
+                </div>
+                <div class="exercise-detail-row">
+                    <span>Difficulté</span>
+                    <span><?= htmlspecialchars($exercise->getDifficulty()) ?></span>
+                </div>
+            </div>
+
+            <a href="#" class="btn btn-primary exercise-detail-btn">+ Ajouter à un programme</a>
+        </div>
+    </div>
+</section>

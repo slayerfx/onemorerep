@@ -1,0 +1,609 @@
+/* ===== IMPORT GOOGLE FONTS ===== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+/* ===== VARIABLES CSS ===== */
+:root {
+  --color-primary: #1f6b3a;
+  --color-navy: #1a1a2e;
+  --color-background: #f0f4f0;
+  --color-white: #ffffff;
+  --color-text: #333333;
+  --color-error: #d32f2f;
+
+  --badge-beginner: #1565c0;
+  --badge-intermediate: #e65100;
+  --badge-advanced: #c62828;
+
+  --font-family: "Inter", sans-serif;
+}
+
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px (62.5% of 16px) */
+}
+
+/* ===== BASE ===== */
+body {
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== NAVIGATION ===== */
+
+/* --- Mobile (base) --- */
+nav {
+  background-color: var(--color-navy);
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nav-logo img {
+  height: 4rem;
+  width: auto;
+}
+
+.nav-links {
+  display: none;
+}
+
+.nav-links a {
+  color: var(--color-white);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: var(--color-primary);
+}
+
+.nav-btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.8rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.nav-btn:hover {
+  opacity: 0.9;
+}
+
+/* ===== HERO ===== */
+
+/* --- Mobile (base) --- */
+.hero {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../images/young-man-sportswear-exercise-class-gym.webp");
+  background-size: cover;
+  background-position: center;
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.hero h1 {
+  color: var(--color-white);
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+}
+
+.hero-accent {
+  color: var(--color-primary);
+}
+
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 1.2rem 2.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btn-secondary {
+  background-color: var(--color-white);
+  color: var(--color-text);
+}
+
+/* ===== FONCTIONNALITES ===== */
+
+/* --- Mobile (base) --- */
+.features {
+  padding: 4rem 2rem;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.features h2 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.feature-card {
+  background-color: var(--color-white);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.feature-card img {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  flex-shrink: 0;
+}
+
+.feature-card h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.feature-card p {
+  font-size: 1.3rem;
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+/* ===== PAGE EXERCICES ===== */
+
+/* --- Mobile (base) --- */
+.exercises-header {
+  padding: 3rem 2rem 1.5rem;
+  text-align: left;
+}
+
+.exercises-header h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.exercises-header p {
+  font-size: 1.4rem;
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+.exercises-filters {
+  padding: 0 2rem 2rem;
+  display: flex;
+  gap: 0.8rem;
+  overflow-x: auto;
+}
+
+.filter-btn {
+  background-color: var(--color-white);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.6rem 1.6rem;
+  font-size: 1.3rem;
+  font-family: var(--font-family);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filter-btn.active {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.exercises-grid {
+  padding: 0 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 110rem;
+  margin: 0 auto;
+}
+
+.exercise-card {
+  background-color: var(--color-white);
+  border-radius: 1rem;
+  display: flex;
+  align-items: stretch;
+  color: var(--color-text);
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  height: 7rem;
+}
+
+.exercise-card-img {
+  background-color: var(--color-background);
+  width: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.exercise-card img {
+  max-width: 75%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.exercise-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.2rem;
+  min-width: 0;
+}
+
+.exercise-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.exercise-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.exercise-group {
+  font-size: 1.3rem;
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+.badge {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.badge-beginner {
+  color: var(--badge-beginner);
+}
+
+.badge-intermediate {
+  color: var(--badge-intermediate);
+}
+
+.badge-advanced {
+  color: var(--badge-advanced);
+}
+
+/* ===== DETAIL EXERCICE ===== */
+
+/* --- Mobile (base) --- */
+.exercise-detail {
+  padding: 2rem;
+  max-width: 110rem;
+  margin: 0 auto;
+}
+
+.exercise-detail-img {
+  background-color: var(--color-background);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+.exercise-detail-img img {
+  max-height: 25rem;
+  object-fit: contain;
+}
+
+.exercise-detail-info h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.exercise-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.exercise-detail-info h2 {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.exercise-detail-desc {
+  font-size: 1.4rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  opacity: 0.85;
+  margin-bottom: 2.5rem;
+}
+
+.exercise-detail-table {
+  background-color: var(--color-white);
+  border-radius: 1rem;
+  border: 1px solid var(--color-background);
+  padding: 0.5rem 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.exercise-detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.2rem 0;
+  font-size: 1.4rem;
+}
+
+.exercise-detail-row + .exercise-detail-row {
+  border-top: 1px solid var(--color-background);
+}
+
+.exercise-detail-row span:last-child {
+  font-weight: 600;
+}
+
+.exercise-detail-btn {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+/* ===== SECTION CARTE ===== */
+
+/* --- Mobile (base) --- */
+.map-section {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.map-section h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.map-section p {
+  font-size: 1.4rem;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+#map {
+  background-color: var(--color-white);
+  border-radius: 1rem;
+  height: 25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 1.4rem;
+}
+
+/* ===== FOOTER ===== */
+
+/* --- Mobile (base) --- */
+footer {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.4rem;
+}
+
+footer a {
+  color: var(--color-primary);
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* --- Tablette (768px+) --- */
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  .hero {
+    padding: 8rem 4rem;
+  }
+
+  .hero h1 {
+    font-size: 3.2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .features-grid {
+    flex-direction: row;
+    gap: 2.5rem;
+  }
+
+  .feature-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+  }
+
+  .feature-card img {
+    width: 100%;
+    height: 18rem;
+    border-radius: 0;
+  }
+
+  .feature-card-text {
+    padding: 1.5rem;
+    padding-top: 0;
+  }
+
+  .exercises-header {
+    max-width: 110rem;
+    margin: 0 auto;
+    padding: 4rem 4rem 1.5rem;
+  }
+
+  .exercises-header h1 {
+    font-size: 3.2rem;
+  }
+
+  .exercises-filters {
+    justify-content: flex-start;
+    overflow-x: visible;
+    max-width: 110rem;
+    margin: 0 auto;
+    padding: 0 4rem 2rem;
+  }
+
+  .exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 110rem;
+    padding: 0 4rem 4rem;
+  }
+
+  .exercise-card {
+    flex-direction: column;
+    padding: 0;
+    text-align: left;
+    align-items: stretch;
+    height: 25rem;
+  }
+
+  .exercise-card-img {
+    width: 100%;
+    height: 16rem;
+    border-radius: 0;
+  }
+
+  .exercise-card-text {
+    align-items: flex-start;
+    padding: 1.5rem;
+  }
+
+  .exercise-detail {
+    padding: 3rem 4rem;
+  }
+
+  .exercise-detail-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .exercise-detail-img {
+    margin-bottom: 0;
+    padding: 4rem;
+    min-height: 35rem;
+  }
+
+  .exercise-detail-info h1 {
+    font-size: 3.2rem;
+  }
+
+  .exercise-detail-btn {
+    width: auto;
+    display: inline-block;
+  }
+}
+
+/* --- Desktop (1024px+) --- */
+@media (min-width: 1024px) {
+  nav {
+    padding: 1rem 3rem;
+  }
+
+  .nav-links {
+    gap: 3.5rem;
+  }
+
+  .hero {
+    padding: 12rem 4rem;
+  }
+
+  .hero h1 {
+    font-size: 3.2rem;
+  }
+
+  .map-section {
+    padding: 6rem 4rem;
+  }
+
+  .map-section h2 {
+    font-size: 2.4rem;
+  }
+
+  #map {
+    height: 40rem;
+    max-width: 90rem;
+    margin: 0 auto;
+  }
+}

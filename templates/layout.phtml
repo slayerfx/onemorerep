@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OneMoreRep</title>
+    <title><?= isset($data["title"]) ? htmlspecialchars($data["title"]) . " — OneMoreRep" : "OneMoreRep" ?></title>
+    <meta name="description" content="<?= htmlspecialchars($data["description"] ?? "OneMoreRep — Forge ton programme, forge ton corps.") ?>">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <?php require __DIR__ . "/partials/_header.phtml"; ?>
+    <?php require __DIR__ . "/partials/_nav.phtml"; ?>
 
     <main>
         <?php require __DIR__ . "/" . $template; ?>
