@@ -8,7 +8,8 @@ class ExerciseManager extends AbstractManager
             "SELECT e.id, e.name, e.description, e.difficulty, e.image,
                     mg.id AS muscle_group_id, mg.name AS muscle_group_name
              FROM exercises e
-             JOIN muscle_groups mg ON e.muscle_group_id = mg.id"
+             JOIN muscle_groups mg ON e.muscle_group_id = mg.id
+             ORDER BY e.id"
         );
         $query->execute();
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -82,5 +83,44 @@ class ExerciseManager extends AbstractManager
         }
 
         return $exercises;
+    }
+
+    public function create(Exercise $exercise): void
+    {
+        $query = $this->db->prepare(
+            "INSERT INTO exercises (name, description, difficulty, muscle_group_id, image)
+             VALUES (:name, :description, :difficulty, :muscleGroupId, :image)"
+        );
+        $query->execute([
+            "name" => $exercise->getName(),
+            "description" => $exercise->getDescription(),
+            "difficulty" => $exercise->getDifficulty(),
+            "muscleGroupId" => $exercise->getMuscleGroup()->getId(),
+            "image" => $exercise->getImage()
+        ]);
+    }
+
+    public function update(Exercise $exercise): void
+    {
+        $query = $this->db->prepare(
+            "UPDATE exercises
+             SET name = :name, description = :description, difficulty = :difficulty,
+                 muscle_group_id = :muscleGroupId, image = :image
+             WHERE id = :id"
+        );
+        $query->execute([
+            "name" => $exercise->getName(),
+            "description" => $exercise->getDescription(),
+            "difficulty" => $exercise->getDifficulty(),
+            "muscleGroupId" => $exercise->getMuscleGroup()->getId(),
+            "image" => $exercise->getImage(),
+            "id" => $exercise->getId()
+        ]);
+    }
+
+    public function delete(int $id): void
+    {
+        $query = $this->db->prepare("DELETE FROM exercises WHERE id = :id");
+        $query->execute(["id" => $id]);
     }
 }

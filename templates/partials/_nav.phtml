@@ -3,12 +3,41 @@
         <img src="assets/images/onemorerep.png" alt="OneMoreRep - Accueil">
     </a>
 
+    <button class="burger-btn" aria-label="Ouvrir le menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
     <ul class="nav-links">
         <li><a href="index.php?route=home">Accueil</a></li>
         <li><a href="index.php?route=exercises">Exercices</a></li>
         <li><a href="index.php?route=tdee">Calculateur TDEE</a></li>
-        <li><a href="index.php?route=programs">Mes programmes</a></li>
+        <?php if (isset($_SESSION["user"])) : ?>
+            <li><a href="index.php?route=programs">Mes programmes</a></li>
+            <?php if ($_SESSION["user"]->getRole() === "admin") : ?>
+                <li><a href="index.php?route=admin-exercises">Gestion exercices</a></li>
+            <?php endif; ?>
+        <?php endif; ?>
+        <li class="nav-mobile-auth">
+            <?php if (isset($_SESSION["user"])) : ?>
+                <a href="index.php?route=logout">Déconnexion</a>
+            <?php else : ?>
+                <a href="index.php?route=login">Se connecter</a>
+            <?php endif; ?>
+        </li>
     </ul>
 
-    <a href="index.php?route=login" class="nav-btn">Se connecter</a>
+    <?php if (isset($_SESSION["user"])) : ?>
+        <div class="nav-user">
+            <?php if ($_SESSION["user"]->getRole() === "admin") : ?>
+                <span class="nav-badge-admin">ADMIN</span>
+            <?php endif; ?>
+            <a href="index.php?route=logout" class="btn btn-primary">Déconnexion</a>
+        </div>
+    <?php else : ?>
+        <div class="nav-user">
+            <a href="index.php?route=login" class="btn btn-primary">Se connecter</a>
+        </div>
+    <?php endif; ?>
 </nav>

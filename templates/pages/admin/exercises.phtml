@@ -1,0 +1,87 @@
+<section class="page-header">
+    <h1>Gestion des exercices</h1>
+    <p><?= count($data["exercises"]) ?> exercices au total</p>
+</section>
+
+<?php $badges = ['Débutant' => 'beginner', 'Intermédiaire' => 'intermediate', 'Avancé' => 'advanced']; ?>
+
+<section class="admin-grid">
+    <?php foreach ($data["exercises"] as $exercise) : ?>
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h3><?= htmlspecialchars($exercise->getName()) ?></h3>
+                <span class="admin-card-id">#<?= $exercise->getId() ?></span>
+            </div>
+            <div class="admin-card-meta">
+                <span class="exercise-group"><?= htmlspecialchars($exercise->getMuscleGroup()->getName()) ?></span>
+                <span class="badge badge-<?= $badges[$exercise->getDifficulty()] ?>">
+                    <?= htmlspecialchars($exercise->getDifficulty()) ?>
+                </span>
+            </div>
+            <div class="admin-card-actions">
+                <form action="index.php?route=admin-delete-exercise" method="post">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION["csrf_token"]) ?>">
+                    <input type="hidden" name="id" value="<?= $exercise->getId() ?>">
+                    <button type="submit" class="btn btn-delete">Supprimer</button>
+                </form>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</section>
+
+<section class="admin-form">
+    <div class="card">
+        <h2>Ajouter un exercice</h2>
+
+        <?php if (isset($_SESSION["error-message"])) : ?>
+            <p class="error-message"><?= htmlspecialchars($_SESSION["error-message"]) ?></p>
+            <?php unset($_SESSION["error-message"]); ?>
+        <?php endif; ?>
+
+        <form action="index.php?route=admin-create-exercise" method="post">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION["csrf_token"]) ?>">
+
+            <div class="admin-form-row">
+                <fieldset>
+                    <label for="name">Nom de l'exercice</label>
+                    <input type="text" name="name" id="name" placeholder="Ex : Développé militaire (machine)" required>
+                </fieldset>
+
+                <fieldset>
+                    <label for="muscle_group_id">Groupe musculaire</label>
+                    <select name="muscle_group_id" id="muscle_group_id" required>
+                        <option value=""></option>
+                        <?php foreach ($data["muscleGroups"] as $group) : ?>
+                            <option value="<?= $group->getId() ?>"><?= htmlspecialchars($group->getName()) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </fieldset>
+
+                <fieldset>
+                    <label for="difficulty">Difficulté</label>
+                    <select name="difficulty" id="difficulty" required>
+                        <option value=""></option>
+                        <option value="Débutant">Débutant</option>
+                        <option value="Intermédiaire">Intermédiaire</option>
+                        <option value="Avancé">Avancé</option>
+                    </select>
+                </fieldset>
+            </div>
+
+            <fieldset>
+                <label for="description">Description</label>
+                <textarea name="description" id="description" rows="4" placeholder="Décris l'exercice, les muscles ciblés, la technique..." required></textarea>
+            </fieldset>
+
+            <fieldset>
+                <label for="image">Image de l'exercice</label>
+                <input type="text" name="image" id="image" placeholder="Pectoraux/Bench_press.webp">
+            </fieldset>
+
+            <div class="admin-form-actions">
+                <button type="submit" class="btn btn-primary">Ajouter l'exercice</button>
+                <a href="index.php?route=admin-exercises" class="admin-cancel">Annuler</a>
+            </div>
+        </form>
+    </div>
+</section>
