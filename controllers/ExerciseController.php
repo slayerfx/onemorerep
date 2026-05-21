@@ -26,7 +26,7 @@ class ExerciseController extends AbstractController
         $this->render("pages/exercises/show.phtml", [
             "exercise" => $exercise,
             "title" => $exercise->getName(),
-            "description" => $exercise->getName() . " — " . $exercise->getMuscleGroup()->getName() . ", " . $exercise->getDifficulty() . ". " . substr($exercise->getDescription(), 0, 150)
+            "description" => $exercise->getName() . " — Exercice " . $exercise->getDifficulty() . " pour les " . $exercise->getMuscleGroup()->getName() . "."
         ]);
     }
 

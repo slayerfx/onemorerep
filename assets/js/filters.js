@@ -23,11 +23,9 @@ function createExerciseCard(exercise) {
         + '</a>';
 }
 
-// Select DOM elements
 const filterButtons = document.querySelectorAll(".filter-btn");
 const grid = document.querySelector(".exercises-grid");
 
-// Listen for click events on each filter button
 filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
         // Toggle active state: remove from all, add to clicked

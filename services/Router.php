@@ -28,6 +28,51 @@ class Router
                 $controller->api();
                 break;
 
+            case "login":
+                $controller = new AuthController();
+                $controller->login();
+                break;
+
+            case "check-login":
+                $controller = new AuthController();
+                $controller->checkLogin();
+                break;
+
+            case "register":
+                $controller = new AuthController();
+                $controller->register();
+                break;
+
+            case "check-register":
+                $controller = new AuthController();
+                $controller->checkRegister();
+                break;
+
+            case "logout":
+                $controller = new AuthController();
+                $controller->logout();
+                break;
+
+            case "legal":
+                $controller = new HomeController();
+                $controller->legal();
+                break;
+
+            case "admin-exercises":
+                $controller = new AdminController();
+                $controller->index();
+                break;
+
+            case "admin-create-exercise":
+                $controller = new AdminController();
+                $controller->create();
+                break;
+
+            case "admin-delete-exercise":
+                $controller = new AdminController();
+                $controller->delete();
+                break;
+
             default:
                 header("Location: index.php?route=home");
                 break;
