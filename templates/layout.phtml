@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= isset($data["title"]) ? htmlspecialchars($data["title"]) . " — OneMoreRep" : "OneMoreRep" ?></title>
-    <meta name="description" content="<?= htmlspecialchars($data["description"] ?? "OneMoreRep — Forge ton programme, forge ton corps.") ?>">
+    <meta name="description" content="<?= htmlspecialchars(isset($data["description"]) ? $data["description"] : "OneMoreRep — Forge ton programme, forge ton corps.") ?>">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

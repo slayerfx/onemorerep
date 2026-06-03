@@ -8,10 +8,14 @@ abstract class AbstractManager
     {
         $connexion = "mysql:host=" . $_ENV["DB_HOST"] . ";port=3306;charset=" . $_ENV["DB_CHARSET"] . ";dbname=" . $_ENV["DB_NAME"];
 
-        $this->db = new PDO(
-            $connexion,
-            $_ENV["DB_USER"],
-            $_ENV["DB_PASSWORD"]
-        );
+        try {
+            $this->db = new PDO(
+                $connexion,
+                $_ENV["DB_USER"],
+                $_ENV["DB_PASSWORD"]
+            );
+        } catch (PDOException $e) {            
+            die("Une erreur technique est survenue. Merci de réessayer plus tard.");
+        }
     }
 }

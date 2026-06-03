@@ -10,6 +10,5 @@ abstract class AbstractController
     protected function redirect(string $route): void
     {
         header("Location: index.php?route=" . $route);
-        exit;
     }
 }

@@ -1,7 +1,7 @@
 /* ===== IMPORT GOOGLE FONTS ===== */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
-/* ===== VARIABLES CSS ===== */
+/* ===== CSS VARIABLES ===== */
 :root {
   --color-primary: #1f6b3a;
   --color-navy: #1a1a2e;
@@ -177,6 +177,7 @@ nav {
   border: none;
   cursor: pointer;
   font-family: var(--font-family);
+  text-align: center;
 }
 
 .btn-primary {
@@ -208,7 +209,6 @@ nav {
 
 .btn-full {
   width: 100%;
-  text-align: center;
 }
 
 /* ===== CARD ===== */
@@ -240,14 +240,15 @@ fieldset label {
 
 fieldset input,
 fieldset select,
-fieldset textarea {
+fieldset textarea,
+.program-add-exercise select {
   width: 100%;
   padding: 1rem 1.2rem;
   font-size: 1.4rem;
   font-family: var(--font-family);
   border: 1px solid #ddd;
   border-radius: 0.5rem;
-  background-color: var(--color-background);
+  background-color: var(--color-white);
 }
 
 fieldset input:focus,
@@ -283,7 +284,7 @@ fieldset textarea:focus {
   opacity: 0.8;
 }
 
-/* ===== FONCTIONNALITES ===== */
+/* ===== FEATURES ===== */
 
 /* --- Mobile (base) --- */
 .features {
@@ -340,7 +341,7 @@ fieldset textarea:focus {
   opacity: 0.8;
 }
 
-/* ===== PAGE EXERCICES ===== */
+/* ===== EXERCISES PAGE ===== */
 
 /* --- Mobile (base) --- */
 
@@ -447,7 +448,7 @@ fieldset textarea:focus {
   color: var(--badge-advanced);
 }
 
-/* ===== DETAIL EXERCICE ===== */
+/* ===== EXERCISE DETAIL ===== */
 
 /* --- Mobile (base) --- */
 .exercise-detail {
@@ -569,7 +570,7 @@ fieldset textarea:focus {
   font-weight: 600;
 }
 
-/* ===== SECTION CARTE ===== */
+/* ===== MAP SECTION ===== */
 
 /* --- Mobile (base) --- */
 .map-section {
@@ -616,7 +617,7 @@ footer a {
   color: var(--color-primary);
 }
 
-/* ===== MENTIONS LEGALES ===== */
+/* ===== LEGAL NOTICE ===== */
 
 /* --- Mobile (base) --- */
 .legal {
@@ -664,20 +665,23 @@ footer a {
 /* ===== ADMIN ===== */
 
 /* --- Mobile (base) --- */
-.admin-grid {
+.admin-grid,
+.programs-grid {
   padding: 0 2rem 3rem;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.5rem;
   max-width: 110rem;
   margin: 0 auto;
 }
 
-.admin-card {
+.admin-card,
+.program-card,
+.program-exercise-card {
   background-color: var(--color-white);
   border-radius: 1rem;
-  padding: 1.5rem 2rem;
-  border: 1px solid #e0e0e0;
+  padding: 1.8rem 2rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .admin-card-header {
@@ -687,7 +691,8 @@ footer a {
   margin-bottom: 0.5rem;
 }
 
-.admin-card-header h3 {
+.admin-card-header h3,
+.program-exercise-card-header h3 {
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -698,23 +703,28 @@ footer a {
   opacity: 0.4;
 }
 
-.admin-card-meta {
+.admin-card-meta,
+.program-exercise-card-meta {
   display: flex;
   align-items: center;
   gap: 0.8rem;
   margin-bottom: 1.2rem;
 }
 
-.admin-card-actions {
+.admin-card-actions,
+.program-card-actions {
   display: flex;
   gap: 0.8rem;
 }
 
-.admin-card-actions form {
+.admin-card-actions form,
+.program-card-actions form {
   margin: 0;
 }
 
-.admin-card-actions .btn {
+.admin-card-actions .btn,
+.program-card-actions .btn,
+.btn-remove-exercise {
   padding: 0.6rem 1.4rem;
   font-size: 1.3rem;
   line-height: 1.4;
@@ -753,29 +763,115 @@ footer a {
   font-size: 1.4rem;
 }
 
+/* ===== PROGRAMS ===== */
+
+/* --- Mobile (base) --- */
+.page-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.programs-empty {
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+.program-card-header {
+  margin-bottom: 1.2rem;
+}
+
+.program-card-header a {
+  color: var(--color-text);
+}
+
+.program-card-header h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.program-card-meta {
+  font-size: 1.3rem;
+  color: var(--color-text);
+  opacity: 0.6;
+}
+
+.program-card-exercises {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.program-exercise-tag {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-size: 1.2rem;
+  padding: 0.4rem 1rem;
+  border-radius: 1.5rem;
+}
+
+
+/* ===== PROGRAM FORM ===== */
+.program-form-section {
+  padding: 0 2rem 3rem;
+  max-width: 110rem;
+  margin: 0 auto;
+}
+
+.program-form-section #exercises-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.program-exercise-card-header {
+  margin-bottom: 1.2rem;
+}
+
+.program-exercise-card-header h3 {
+  margin-bottom: 0.5rem;
+}
+
+.program-exercise-card-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.program-exercise-card-inputs fieldset {
+  margin: 0;
+}
+
+.program-exercise-card-inputs input {
+  text-align: center;
+}
+
+.program-add-exercise {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.program-form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
 /* ===== RESPONSIVE ===== */
 
-/* --- Tablette (768px+) --- */
+/* --- Tablet (768px+) --- */
 @media (min-width: 768px) {
-  .burger-btn {
-    display: none;
-  }
-
-  .nav-mobile-auth {
-    display: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-  }
-
-  .nav-user {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
   .hero {
     padding: 8rem 4rem;
   }
@@ -886,15 +982,17 @@ footer a {
     display: inline-block;
   }
 
+  .admin-grid,
+  .admin-form,
+  .programs-grid,
+  .program-form-section {
+    padding: 0 4rem 4rem;
+  }
+
   .admin-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    padding: 0 4rem 4rem;
-  }
-
-  .admin-form {
-    padding: 0 4rem 4rem;
   }
 
   .admin-form-row {
@@ -905,6 +1003,32 @@ footer a {
   .admin-form-row fieldset:first-child {
     grid-column: auto;
   }
+
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .program-form-section #exercises-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .program-add-exercise {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .program-add-exercise select {
+    flex: 1;
+  }
+
+  .program-form-actions {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 /* --- Desktop (1024px+) --- */
@@ -913,16 +1037,27 @@ footer a {
     padding: 1rem 3rem;
   }
 
+  .burger-btn {
+    display: none;
+  }
+
+  .nav-mobile-auth {
+    display: none;
+  }
+
   .nav-links {
+    display: flex;
     gap: 3.5rem;
+  }
+
+  .nav-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
   .hero {
     padding: 12rem 4rem;
-  }
-
-  .hero h1 {
-    font-size: 3.2rem;
   }
 
   .map-section {
@@ -937,5 +1072,9 @@ footer a {
     height: 40rem;
     max-width: 90rem;
     margin: 0 auto;
+  }
+
+  .program-form-section #exercises-container {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
