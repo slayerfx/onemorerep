@@ -1,0 +1,75 @@
+<?php $badges = ['Débutant' => 'beginner', 'Intermédiaire' => 'intermediate', 'Avancé' => 'advanced']; ?>
+<?php $program = $data["program"]; ?>
+
+<section class="page-header">
+    <h1>Modifier le programme</h1>
+</section>
+
+<section class="program-form-section">
+    <form action="index.php?route=check-edit-program&id=<?= $program->getId() ?>" method="post" id="program-form">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION["csrf_token"]) ?>">
+
+        <fieldset>
+            <label for="name">Nom du programme</label>
+            <input type="text" name="name" id="name" value="<?= htmlspecialchars($program->getName()) ?>" required>
+        </fieldset>
+
+        <div id="exercises-container">
+            <?php foreach ($program->getProgramExercises() as $index => $pe) : ?>
+                <div class="program-exercise-card" data-index="<?= $index ?>">
+                    <div class="program-exercise-card-header">
+                        <h3><?= htmlspecialchars($pe->getExercise()->getName()) ?></h3>
+                        <div class="program-exercise-card-meta">
+                            <span class="exercise-group"><?= htmlspecialchars($pe->getExercise()->getMuscleGroup()->getName()) ?></span>
+                            <span class="badge badge-<?= $badges[$pe->getExercise()->getDifficulty()] ?>">
+                                <?= htmlspecialchars($pe->getExercise()->getDifficulty()) ?>
+                            </span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="exercises[<?= $index ?>][exercise_id]" value="<?= $pe->getExercise()->getId() ?>">
+                    <div class="program-exercise-card-inputs">
+                        <fieldset>
+                            <label for="exercises-<?= $index ?>-sets">Séries</label>
+                            <input id="exercises-<?= $index ?>-sets" type="number" name="exercises[<?= $index ?>][sets]" value="<?= $pe->getSets() ?>" min="1" required>
+                        </fieldset>
+                        <fieldset>
+                            <label for="exercises-<?= $index ?>-reps">Répétitions</label>
+                            <input id="exercises-<?= $index ?>-reps" type="number" name="exercises[<?= $index ?>][reps]" value="<?= $pe->getReps() ?>" min="1" required>
+                        </fieldset>
+                        <fieldset>
+                            <label for="exercises-<?= $index ?>-weight">Poids (kg)</label>
+                            <input id="exercises-<?= $index ?>-weight" type="number" name="exercises[<?= $index ?>][weight]" value="<?= $pe->getWeight() ?>" min="0" step="0.5">
+                        </fieldset>
+                        <fieldset>
+                            <label for="exercises-<?= $index ?>-rest_time">Repos (s)</label>
+                            <input id="exercises-<?= $index ?>-rest_time" type="number" name="exercises[<?= $index ?>][rest_time]" value="<?= $pe->getRestTime() ?>" min="0" required>
+                        </fieldset>
+                    </div>
+                    <button type="button" class="btn btn-delete btn-remove-exercise">Supprimer</button>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="program-add-exercise">
+            <select id="exercise-select">
+                <option value="">Choisir un exercice à ajouter...</option>
+                <?php foreach ($data["exercises"] as $exercise) : ?>
+                    <option value="<?= $exercise->getId() ?>"
+                            data-name="<?= htmlspecialchars($exercise->getName()) ?>"
+                            data-group="<?= htmlspecialchars($exercise->getMuscleGroup()->getName()) ?>"
+                            data-difficulty="<?= htmlspecialchars($exercise->getDifficulty()) ?>">
+                        <?= htmlspecialchars($exercise->getName()) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <button type="button" id="btn-add-exercise" class="btn btn-primary">+ Ajouter</button>
+        </div>
+
+        <div class="program-form-actions">
+            <button type="submit" class="btn btn-primary">Enregistrer le programme</button>
+            <a href="index.php?route=programs" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</section>
+
+<script src="assets/js/program.js"></script>

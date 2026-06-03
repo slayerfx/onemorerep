@@ -21,6 +21,7 @@ class ExerciseController extends AbstractController
 
         if (!$exercise) {
             $this->redirect("exercises");
+            return;
         }
 
         $this->render("pages/exercises/show.phtml", [
@@ -30,7 +31,6 @@ class ExerciseController extends AbstractController
         ]);
     }
 
-    // Returns JSON data for the JS fetch filter (no HTML rendering)
     public function api(): void
     {
         $manager = new ExerciseManager();

@@ -5,7 +5,7 @@ class UserManager extends AbstractManager
     public function findByEmail(string $email): ?User
     {
         $query = $this->db->prepare(
-            "SELECT id, email, password, role, tdee, created_at
+            "SELECT *
              FROM users
              WHERE email = :email"
         );
@@ -36,5 +36,7 @@ class UserManager extends AbstractManager
             "email" => $user->getEmail(),
             "password" => $user->getPassword()
         ]);
+
+        $user->setId($this->db->lastInsertId());
     }
 }

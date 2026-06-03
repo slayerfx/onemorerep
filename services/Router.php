@@ -73,6 +73,36 @@ class Router
                 $controller->delete();
                 break;
 
+            case "programs":
+                $controller = new ProgramController();
+                $controller->index();
+                break;
+
+            case "create-program":
+                $controller = new ProgramController();
+                $controller->create();
+                break;
+
+            case "check-create-program":
+                $controller = new ProgramController();
+                $controller->checkCreate();
+                break;
+
+            case "edit-program":
+                $controller = new ProgramController();
+                $controller->edit($id);
+                break;
+
+            case "check-edit-program":
+                $controller = new ProgramController();
+                $controller->checkEdit($id);
+                break;
+
+            case "delete-program":
+                $controller = new ProgramController();
+                $controller->delete();
+                break;
+
             default:
                 header("Location: index.php?route=home");
                 break;

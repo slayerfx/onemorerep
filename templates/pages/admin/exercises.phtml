@@ -7,7 +7,7 @@
 
 <section class="admin-grid">
     <?php foreach ($data["exercises"] as $exercise) : ?>
-        <div class="admin-card">
+        <article class="admin-card">
             <div class="admin-card-header">
                 <h3><?= htmlspecialchars($exercise->getName()) ?></h3>
                 <span class="admin-card-id">#<?= $exercise->getId() ?></span>
@@ -25,7 +25,7 @@
                     <button type="submit" class="btn btn-delete">Supprimer</button>
                 </form>
             </div>
-        </div>
+        </article>
     <?php endforeach; ?>
 </section>
 

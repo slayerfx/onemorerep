@@ -1,0 +1,46 @@
+<section class="page-header">
+    <div class="page-header-row">
+        <h1>Mes programmes</h1>
+        <a href="index.php?route=create-program" class="btn btn-primary">+ Nouveau programme</a>
+    </div>
+</section>
+
+<?php if (empty($data["programs"])) : ?>
+    <section class="programs-empty">
+        <p>Tu n'as pas encore de programme. Crée ton premier programme d'entraînement !</p>
+    </section>
+<?php else : ?>
+    <section class="programs-grid">
+        <?php foreach ($data["programs"] as $program) : ?>
+            <article class="program-card">
+                <div class="program-card-header">
+                    <a href="index.php?route=edit-program&id=<?= $program->getId() ?>">
+                        <h3><?= htmlspecialchars($program->getName()) ?></h3>
+                    </a>
+                    <p class="program-card-meta">
+                        <?= count($program->getProgramExercises()) ?> exercices
+                        -
+                        Créé le <?= date("d/m/Y", strtotime($program->getCreatedAt())) ?>
+                    </p>
+                </div>
+
+                <div class="program-card-exercises">
+                    <?php foreach ($program->getProgramExercises() as $programExercise) : ?>
+                        <span class="program-exercise-tag">
+                            <?= htmlspecialchars($programExercise->getExercise()->getName()) ?>
+                        </span>
+                    <?php endforeach; ?>
+                </div>
+
+                <div class="program-card-actions">
+                    <a href="index.php?route=edit-program&id=<?= $program->getId() ?>" class="btn btn-edit">Modifier</a>
+                    <form action="index.php?route=delete-program" method="post">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION["csrf_token"]) ?>">
+                        <input type="hidden" name="id" value="<?= $program->getId() ?>">
+                        <button type="submit" class="btn btn-delete">Supprimer</button>
+                    </form>
+                </div>
+            </article>
+        <?php endforeach; ?>
+    </section>
+<?php endif; ?>
