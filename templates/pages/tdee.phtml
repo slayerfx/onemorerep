@@ -1,0 +1,83 @@
+<section class="page-header">
+    <h1>Calculateur TDEE</h1>
+    <p>Calcule ta dépense énergétique journalière totale</p>
+</section>
+
+<section class="tdee-layout">
+    <div class="card">
+        <h2>Tes informations</h2>
+
+        <form action="index.php?route=calculate-tdee" method="post">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION["csrf_token"]) ?>">
+
+            <fieldset class="tdee-sex">
+                <legend>Sexe</legend>
+                <label>
+                    <input type="radio" name="sex" value="homme" checked> Homme
+                </label>
+                <label>
+                    <input type="radio" name="sex" value="femme"> Femme
+                </label>
+            </fieldset>
+
+            <div class="tdee-row">
+                <fieldset>
+                    <label for="age">Âge (années)</label>
+                    <input type="number" name="age" id="age" min="15" max="100" required>
+                </fieldset>
+
+                <fieldset>
+                    <label for="weight">Poids (kg)</label>
+                    <input type="number" name="weight" id="weight" min="30" max="300" step="0.1" required>
+                </fieldset>
+            </div>
+
+            <fieldset>
+                <label for="height">Taille (cm)</label>
+                <input type="number" name="height" id="height" min="100" max="250" required>
+            </fieldset>
+
+            <fieldset>
+                <label for="activity">Niveau d'activité</label>
+                <select name="activity" id="activity" required>
+                    <option value="1.2">Sédentaire (peu ou pas d'exercice)</option>
+                    <option value="1.375">Légèrement actif (1-3 jours/semaine)</option>
+                    <option value="1.55" selected>Modérément actif (3-5 jours/semaine)</option>
+                    <option value="1.725">Très actif (6-7 jours/semaine)</option>
+                    <option value="1.9">Extrêmement actif (travail physique + sport)</option>
+                </select>
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary">Calculer mon TDEE</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Résultats</h2>
+
+        <?php if (isset($data["tdee"])) : ?>
+            <div class="tdee-result-main">
+                <span class="tdee-big"><?= round($data["tdee"]) ?></span>
+                <span class="tdee-unit">kcal / jour</span>
+                <p>Ta dépense énergétique journalière</p>
+            </div>
+
+            <div class="tdee-result-line">
+                <span>Métabolisme de base (BMR)</span>
+                <strong><?= round($data["bmr"]) ?> kcal</strong>
+            </div>
+
+            <div class="tdee-result-line">
+                <span>Prise de masse (+10%)</span>
+                <strong><?= round($data["bulk"]) ?> kcal</strong>
+            </div>
+
+            <div class="tdee-result-line">
+                <span>Perte de poids (-10%)</span>
+                <strong><?= round($data["cut"]) ?> kcal</strong>
+            </div>
+        <?php else : ?>
+            <p class="tdee-empty">Remplis le formulaire et clique sur « Calculer mon TDEE » pour voir tes résultats.</p>
+        <?php endif; ?>
+    </div>
+</section>

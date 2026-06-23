@@ -103,6 +103,16 @@ class Router
                 $controller->delete();
                 break;
 
+            case "tdee":
+                $controller = new TDEEController();
+                $controller->index();
+                break;
+
+            case "calculate-tdee":
+                $controller = new TDEEController();
+                $controller->calculate();
+                break;
+
             default:
                 header("Location: index.php?route=home");
                 break;
