@@ -14,7 +14,7 @@ abstract class AbstractManager
                 $_ENV["DB_USER"],
                 $_ENV["DB_PASSWORD"]
             );
-        } catch (PDOException $e) {            
+        } catch (PDOException $e) {
             die("Une erreur technique est survenue. Merci de réessayer plus tard.");
         }
     }

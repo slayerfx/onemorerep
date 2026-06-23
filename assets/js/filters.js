@@ -1,11 +1,9 @@
-// Mapping difficulty labels to CSS class names
 const badges = {
     "Débutant": "beginner",
     "Intermédiaire": "intermediate",
     "Avancé": "advanced"
 };
 
-// Builds the HTML for one exercise card (same structure as the PHP template)
 function createExerciseCard(exercise) {
     const badgeClass = badges[exercise.difficulty];
 
@@ -28,7 +26,6 @@ const grid = document.querySelector(".exercises-grid");
 
 filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        // Toggle active state: remove from all, add to clicked
         filterButtons.forEach((btn) => btn.classList.remove("active"));
         button.classList.add("active");
 
@@ -38,7 +35,6 @@ filterButtons.forEach((button) => {
             url += "&group=" + group;
         }
 
-        // Fetch exercises from the server (async, no page reload)
         fetch(url)
             .then((response) => response.json())
             .then((exercises) => {

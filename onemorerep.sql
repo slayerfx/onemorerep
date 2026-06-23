@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 03 juin 2026 à 20:09
+-- Généré le : mar. 09 juin 2026 à 18:18
 -- Version du serveur : 8.4.3
 -- Version de PHP : 8.3.30
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `onemorerep`
 --
+CREATE DATABASE IF NOT EXISTS `onemorerep` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `onemorerep`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +30,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `exercises`
 --
 
+DROP TABLE IF EXISTS `exercises`;
 CREATE TABLE `exercises` (
   `id` int NOT NULL,
   `muscle_group_id` int NOT NULL,
@@ -74,6 +78,7 @@ INSERT INTO `exercises` (`id`, `muscle_group_id`, `name`, `description`, `diffic
 -- Structure de la table `muscle_groups`
 --
 
+DROP TABLE IF EXISTS `muscle_groups`;
 CREATE TABLE `muscle_groups` (
   `id` int NOT NULL,
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
@@ -97,6 +102,7 @@ INSERT INTO `muscle_groups` (`id`, `name`) VALUES
 -- Structure de la table `programs`
 --
 
+DROP TABLE IF EXISTS `programs`;
 CREATE TABLE `programs` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
@@ -109,8 +115,10 @@ CREATE TABLE `programs` (
 --
 
 INSERT INTO `programs` (`id`, `user_id`, `name`, `created_at`) VALUES
-(1, 2, 'Push — Lundi', '2026-04-10 11:38:14'),
-(2, 2, 'Pull — Mercredi', '2026-04-10 11:45:32');
+(10, 7, 'Upper Body - Lundi', '2026-06-09 19:03:35'),
+(11, 7, 'Leg Day - Mercredi', '2026-06-09 19:03:57'),
+(12, 7, 'Pull - Vendredi', '2026-06-09 19:08:38'),
+(13, 7, 'Abdos - Samedi', '2026-06-09 19:09:14');
 
 -- --------------------------------------------------------
 
@@ -118,6 +126,7 @@ INSERT INTO `programs` (`id`, `user_id`, `name`, `created_at`) VALUES
 -- Structure de la table `program_exercises`
 --
 
+DROP TABLE IF EXISTS `program_exercises`;
 CREATE TABLE `program_exercises` (
   `id` int NOT NULL,
   `program_id` int NOT NULL,
@@ -133,14 +142,21 @@ CREATE TABLE `program_exercises` (
 --
 
 INSERT INTO `program_exercises` (`id`, `program_id`, `exercise_id`, `sets`, `reps`, `weight`, `rest_time`) VALUES
-(1, 1, 1, 4, 8, 60.0, 120),
-(2, 1, 2, 3, 12, 40.0, 90),
-(3, 1, 16, 4, 10, 30.0, 90),
-(4, 1, 23, 3, 12, 8.0, 60),
-(5, 2, 6, 4, 8, NULL, 120),
-(6, 2, 7, 4, 10, 50.0, 90),
-(7, 2, 21, 3, 12, 10.0, 60),
-(8, 2, 25, 3, 15, NULL, 60);
+(24, 11, 11, 4, 10, 90.0, 90),
+(25, 11, 12, 4, 10, 100.0, 90),
+(26, 11, 13, 4, 10, 50.0, 90),
+(27, 11, 14, 4, 10, 50.0, 90),
+(28, 11, 15, 4, 10, 30.0, 90),
+(33, 13, 25, 4, 10, NULL, 90),
+(34, 13, 26, 4, 10, NULL, 90),
+(35, 12, 6, 4, 10, NULL, 90),
+(36, 12, 7, 4, 10, 40.0, 90),
+(37, 12, 9, 4, 10, 30.0, 90),
+(38, 12, 20, 4, 10, 10.0, 90),
+(39, 10, 1, 4, 10, 60.0, 90),
+(40, 10, 16, 4, 10, 40.0, 90),
+(41, 10, 5, 4, 10, NULL, 90),
+(42, 10, 20, 4, 10, 10.0, 90);
 
 -- --------------------------------------------------------
 
@@ -148,6 +164,7 @@ INSERT INTO `program_exercises` (`id`, `program_id`, `exercise_id`, `sets`, `rep
 -- Structure de la table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -162,10 +179,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `role`, `tdee`, `created_at`) VALUES
-(1, 'louenn@onemorerep.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', NULL, '2026-04-10 10:08:47'),
-(2, 'lucas@test.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'user', NULL, '2026-04-10 10:12:13'),
-(3, 'sarah@test.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'user', NULL, '2026-04-10 10:25:29'),
-(4, 'louenn.p@gmail.com', '$2y$10$rgIdj40yWnlrylyazhPccunhBQ/BoATJoxjsRFbJ9Br2lnaQOmyT.', 'user', NULL, '2026-04-28 17:20:53');
+(5, 'louenn@onemorerep.fr', '$2y$10$tKIVH6GWR6o080kY1xXoXeGotgw6JobCDlO5nGoVZwYn17ObWR2ye', 'admin', NULL, '2026-06-09 18:09:55'),
+(7, 'sarah@test.fr', '$2y$10$/2XSmpeelUgKnm62JHrY7eqZUwwiFeZTW2RUoyeVhhcXht7i9W2Iu', 'user', NULL, '2026-06-09 18:17:12');
 
 --
 -- Index pour les tables déchargées
@@ -227,19 +242,19 @@ ALTER TABLE `muscle_groups`
 -- AUTO_INCREMENT pour la table `programs`
 --
 ALTER TABLE `programs`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `program_exercises`
 --
 ALTER TABLE `program_exercises`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Contraintes pour les tables déchargées
@@ -263,6 +278,7 @@ ALTER TABLE `programs`
 ALTER TABLE `program_exercises`
   ADD CONSTRAINT `program_exercises_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `program_exercises_ibfk_2` FOREIGN KEY (`exercise_id`) REFERENCES `exercises` (`id`);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

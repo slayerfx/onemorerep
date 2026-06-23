@@ -35,7 +35,6 @@ class ProgramManager extends AbstractManager
             $queryExercises->execute(["programId" => $row["id"]]);
             $resultsExercises = $queryExercises->fetchAll(PDO::FETCH_ASSOC);
 
-            // Hydrate ProgramExercise objects with their Exercise
             $programExercises = [];
             foreach ($resultsExercises as $row2) {
                 $muscleGroup = new MuscleGroup($row2["muscle_group_name"], $row2["muscle_group_id"]);
@@ -136,10 +135,8 @@ class ProgramManager extends AbstractManager
             "name" => $program->getName()
         ]);
 
-        // Get the generated ID
         $programId = $this->db->lastInsertId();
 
-        // Insert each exercise into the pivot table
         foreach ($program->getProgramExercises() as $programExercise) {
             $queryExercise = $this->db->prepare(
                 "INSERT INTO program_exercises (program_id, exercise_id, sets, reps, weight, rest_time)
@@ -156,7 +153,6 @@ class ProgramManager extends AbstractManager
         }
     }
 
-    // Update strategy: delete old exercises + re-insert new ones
     public function update(Program $program): void
     {
         $query = $this->db->prepare(
@@ -188,7 +184,6 @@ class ProgramManager extends AbstractManager
         }
     }
 
-    // Delete a program (CASCADE handles pivot table)
     public function delete(int $id): void
     {
         $query = $this->db->prepare("DELETE FROM programs WHERE id = :id");

@@ -2,7 +2,6 @@
 
 class MuscleGroupManager extends AbstractManager
 {
-    // Get all muscle groups for the exercise form <select>
     public function findAll(): array
     {
         $query = $this->db->prepare("SELECT id, name FROM muscle_groups ORDER BY id");

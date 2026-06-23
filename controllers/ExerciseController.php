@@ -2,10 +2,16 @@
 
 class ExerciseController extends AbstractController
 {
+    private ExerciseManager $exerciseManager;
+
+    public function __construct()
+    {
+        $this->exerciseManager = new ExerciseManager();
+    }
+
     public function index(): void
     {
-        $manager = new ExerciseManager();
-        $exercises = $manager->findAll();
+        $exercises = $this->exerciseManager->findAll();
 
         $this->render("pages/exercises/list.phtml", [
             "exercises" => $exercises,
@@ -16,35 +22,29 @@ class ExerciseController extends AbstractController
 
     public function show(int $id): void
     {
-        $manager = new ExerciseManager();
-        $exercise = $manager->findOne($id);
+        $exercise = $this->exerciseManager->findOne($id);
 
         if (!$exercise) {
             $this->redirect("exercises");
-            return;
         }
 
         $this->render("pages/exercises/show.phtml", [
             "exercise" => $exercise,
             "title" => $exercise->getName(),
-            "description" => $exercise->getName() . " — Exercice " . $exercise->getDifficulty() . " pour les " . $exercise->getMuscleGroup()->getName() . "."
+            "description" => $exercise->getName() . " - Exercice " . $exercise->getDifficulty() . " pour les " . $exercise->getMuscleGroup()->getName() . "."
         ]);
     }
 
     public function api(): void
     {
-        $manager = new ExerciseManager();
-
-        // Read the muscle group filter from the URL (?group=3)
         $group = isset($_GET["group"]) ? (int) $_GET["group"] : null;
 
         if ($group) {
-            $exercises = $manager->findByGroup($group);
+            $exercises = $this->exerciseManager->findByGroup($group);
         } else {
-            $exercises = $manager->findAll();
+            $exercises = $this->exerciseManager->findAll();
         }
 
-        // Convert Exercise objects to associative array for json_encode
         $result = [];
         foreach ($exercises as $exercise) {
             $result[] = [
@@ -56,7 +56,6 @@ class ExerciseController extends AbstractController
             ];
         }
 
-        // Send JSON response instead of rendering a template
         header("Content-Type: application/json");
         echo json_encode($result);
     }

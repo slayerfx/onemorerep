@@ -2,20 +2,22 @@
 
 class ProgramController extends AbstractController
 {
-    private function isLoggedIn(): bool
+    private ProgramManager $programManager;
+    private ExerciseManager $exerciseManager;
+
+    public function __construct()
     {
-        return isset($_SESSION["user"]);
+        $this->programManager = new ProgramManager();
+        $this->exerciseManager = new ExerciseManager();
     }
 
     public function index(): void
     {
         if (!$this->isLoggedIn()) {
             $this->redirect("login");
-            return;
         }
 
-        $programManager = new ProgramManager();
-        $programs = $programManager->findByUser($_SESSION["user"]->getId());
+        $programs = $this->programManager->findByUser($_SESSION["user"]->getId());
 
         $this->render("pages/programs/index.phtml", [
             "title" => "Mes programmes",
@@ -28,15 +30,12 @@ class ProgramController extends AbstractController
     {
         if (!$this->isLoggedIn()) {
             $this->redirect("login");
-            return;
         }
-
-        $exerciseManager = new ExerciseManager();
 
         $this->render("pages/programs/create.phtml", [
             "title" => "Créer un programme",
             "description" => "Créer un nouveau programme d'entraînement.",
-            "exercises" => $exerciseManager->findAll()
+            "exercises" => $this->exerciseManager->findAll()
         ]);
     }
 
@@ -44,20 +43,15 @@ class ProgramController extends AbstractController
     {
         if (!$this->isLoggedIn()) {
             $this->redirect("login");
-            return;
         }
 
-        // Reject the request if the CSRF token is missing or invalid (CSRF protection)
         $tokenManager = new CSRFTokenManager();
         if (!isset($_POST["csrf_token"]) || !$tokenManager->validateCSRFToken($_POST["csrf_token"])) {
             $this->redirect("programs");
-            return;
         }
 
         $name = $_POST["name"];
 
-        // Build one ProgramExercise per form row.
-        // The Exercise only carries its id, which is all the manager needs for the pivot INSERT.
         $programExercises = [];
 
         foreach ($_POST["exercises"] as $exerciseData) {
@@ -79,8 +73,7 @@ class ProgramController extends AbstractController
 
         $program = new Program($name, $_SESSION["user"]->getId(), $programExercises);
 
-        $programManager = new ProgramManager();
-        $programManager->create($program);
+        $this->programManager->create($program);
 
         $this->redirect("programs");
     }
@@ -89,25 +82,19 @@ class ProgramController extends AbstractController
     {
         if (!$this->isLoggedIn()) {
             $this->redirect("login");
-            return;
         }
 
-        $programManager = new ProgramManager();
-        $program = $programManager->findOne($id);
+        $program = $this->programManager->findOne($id);
 
-        // Check that the program exists and belongs to the user
         if (!$program || $program->getUserId() !== $_SESSION["user"]->getId()) {
             $this->redirect("programs");
-            return;
         }
-
-        $exerciseManager = new ExerciseManager();
 
         $this->render("pages/programs/edit.phtml", [
             "title" => "Modifier le programme",
             "description" => "Modifier un programme d'entraînement.",
             "program" => $program,
-            "exercises" => $exerciseManager->findAll()
+            "exercises" => $this->exerciseManager->findAll()
         ]);
     }
 
@@ -115,27 +102,19 @@ class ProgramController extends AbstractController
     {
         if (!$this->isLoggedIn()) {
             $this->redirect("login");
-            return;
         }
 
-        // Reject the request if the CSRF token is missing or invalid (CSRF protection)
         $tokenManager = new CSRFTokenManager();
         if (!isset($_POST["csrf_token"]) || !$tokenManager->validateCSRFToken($_POST["csrf_token"])) {
             $this->redirect("programs");
-            return;
         }
 
-        // Load the program and make sure it belongs to the current user
-        $programManager = new ProgramManager();
-        $program = $programManager->findOne($id);
+        $program = $this->programManager->findOne($id);
 
         if (!$program || $program->getUserId() !== $_SESSION["user"]->getId()) {
             $this->redirect("programs");
-            return;
         }
 
-        // Build one ProgramExercise per form row.
-        // The Exercise only carries its id, which is all the manager needs for the pivot INSERT.
         $programExercises = [];
 
         foreach ($_POST["exercises"] as $exerciseData) {
@@ -158,7 +137,7 @@ class ProgramController extends AbstractController
         $program->setName($_POST["name"]);
         $program->setProgramExercises($programExercises);
 
-        $programManager->update($program);
+        $this->programManager->update($program);
 
         $this->redirect("programs");
     }
@@ -167,27 +146,21 @@ class ProgramController extends AbstractController
     {
         if (!$this->isLoggedIn()) {
             $this->redirect("login");
-            return;
         }
 
-        // Reject the request if the CSRF token is missing or invalid (CSRF protection)
         $tokenManager = new CSRFTokenManager();
         if (!isset($_POST["csrf_token"]) || !$tokenManager->validateCSRFToken($_POST["csrf_token"])) {
             $this->redirect("programs");
-            return;
         }
 
-        // Load the program and make sure it belongs to the current user
         $id = $_POST["id"];
-        $programManager = new ProgramManager();
-        $program = $programManager->findOne($id);
+        $program = $this->programManager->findOne($id);
 
         if (!$program || $program->getUserId() !== $_SESSION["user"]->getId()) {
             $this->redirect("programs");
-            return;
         }
 
-        $programManager->delete($id);
+        $this->programManager->delete($id);
 
         $this->redirect("programs");
     }

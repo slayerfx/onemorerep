@@ -1,4 +1,3 @@
-// Mapping difficulty labels to CSS class names
 const badges = {
     "Débutant": "beginner",
     "Intermédiaire": "intermediate",
@@ -9,10 +8,8 @@ const container = document.getElementById("exercises-container");
 const select = document.getElementById("exercise-select");
 const btnAdd = document.getElementById("btn-add-exercise");
 
-// Track the current index for naming form fields (starts after existing cards)
 let exerciseIndex = container.querySelectorAll(".program-exercise-card").length;
 
-// Build the HTML for one exercise card
 function createExerciseCard(exerciseId, name, group, difficulty, index) {
     const badgeClass = badges[difficulty];
 
@@ -66,7 +63,6 @@ btnAdd.addEventListener("click", () => {
     const card = createExerciseCard(exerciseId, name, group, difficulty, exerciseIndex);
     container.appendChild(card);
 
-    // Add click listener on the Remove button of this card
     const removeBtn = card.querySelector(".btn-remove-exercise");
     removeBtn.addEventListener("click", () => {
         card.remove();
@@ -76,7 +72,6 @@ btnAdd.addEventListener("click", () => {
     select.value = "";
 });
 
-// Add click listeners on Remove buttons of existing cards (edit page)
 const existingButtons = document.querySelectorAll(".btn-remove-exercise");
 existingButtons.forEach((btn) => {
     btn.addEventListener("click", () => {

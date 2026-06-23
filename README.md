@@ -55,20 +55,36 @@ DB_PASSWORD=
 
 4. Importer la base de données
 
-Importer le fichier `onemorerep.sql` dans phpMyAdmin ou en ligne de commande :
+Le fichier `onemorerep.sql` crée lui-même la base `onemorerep` puis la remplit (5 tables + jeu de données de test). Il peut être réimporté à tout moment pour réinitialiser la base à zéro.
+
+Dans phpMyAdmin : depuis l'accueil du serveur, onglet « Importer », sélectionner `onemorerep.sql` puis exécuter.
+
+En ligne de commande :
 
 ```bash
-mysql -u root -p onemorerep < onemorerep.sql
+mysql -u root -p < onemorerep.sql
 ```
 
 5. Lancer le serveur local
 
 Placer le projet dans le dossier de votre serveur local (ex : `C:\laragon\www\onemorerep`) et accéder à `http://localhost/onemorerep`.
 
-## Compte admin de test
+## Comptes de test
 
-- Email : louenn@onemorerep.fr
-- Mot de passe : voir le jeu de données de test
+| Rôle | Email | Mot de passe |
+|------|-------|--------------|
+| Admin | louenn@onemorerep.fr | Test1234! |
+| Utilisateur | sarah@test.fr | Test1234! |
+
+Ces identifiants servent uniquement à la démo en local. En production, le mot de passe de l'administrateur doit être remplacé par un mot de passe privé qui n'apparaît jamais dans le dépôt.
+
+## Tests
+
+Les tests unitaires (PHPUnit) couvrent le calcul du TDEE selon la formule Mifflin-St Jeor (cas homme et femme). Pour les lancer :
+
+```bash
+composer test
+```
 
 ## Structure du projet
 

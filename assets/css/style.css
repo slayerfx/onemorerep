@@ -882,7 +882,6 @@ footer a {
   margin-bottom: 2rem;
 }
 
-/* Sex: two native radios side by side */
 .tdee-sex legend {
   font-size: 1.4rem;
   font-weight: 500;
@@ -898,7 +897,6 @@ footer a {
   cursor: pointer;
 }
 
-/* Override the global full-width input style for the radios */
 .tdee-sex input {
   width: auto;
   padding: 0;
