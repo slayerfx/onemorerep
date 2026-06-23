@@ -115,7 +115,7 @@ class Router
 
             default:
                 header("Location: index.php?route=home");
-                break;
+                exit;
         }
     }
 }

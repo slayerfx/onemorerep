@@ -11,9 +11,11 @@
             <input type="text" name="name" id="name" placeholder="Ex : Upper Body - Lundi" required>
         </fieldset>
 
+        <h2 class="sr-only">Exercices du programme</h2>
         <div id="exercises-container"></div>
 
         <div class="program-add-exercise">
+            <label for="exercise-select" class="sr-only">Ajouter un exercice</label>
             <select id="exercise-select">
                 <option value="">Choisir un exercice à ajouter...</option>
                 <?php foreach ($data["exercises"] as $exercise) : ?>

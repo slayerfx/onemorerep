@@ -61,7 +61,7 @@ class AdminController extends AbstractController
             $this->redirect("admin-exercises");
         }
 
-        $id = $_POST["id"];
+        $id = (int) $_POST["id"];
         $this->exerciseManager->delete($id);
 
         $this->redirect("admin-exercises");

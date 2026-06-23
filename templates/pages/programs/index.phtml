@@ -6,11 +6,12 @@
 </section>
 
 <?php if (empty($data["programs"])) : ?>
-    <section class="programs-empty">
+    <div class="programs-empty">
         <p>Tu n'as pas encore de programme. Crée ton premier programme d'entraînement !</p>
-    </section>
+    </div>
 <?php else : ?>
     <section class="programs-grid">
+        <h2 class="sr-only">Liste de mes programmes</h2>
         <?php foreach ($data["programs"] as $program) : ?>
             <article class="program-card">
                 <div class="program-card-header">
