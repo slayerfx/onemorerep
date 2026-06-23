@@ -153,7 +153,7 @@ class ProgramController extends AbstractController
             $this->redirect("programs");
         }
 
-        $id = $_POST["id"];
+        $id = (int) $_POST["id"];
         $program = $this->programManager->findOne($id);
 
         if (!$program || $program->getUserId() !== $_SESSION["user"]->getId()) {

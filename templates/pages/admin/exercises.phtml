@@ -6,6 +6,7 @@
 <?php $badges = ['Débutant' => 'beginner', 'Intermédiaire' => 'intermediate', 'Avancé' => 'advanced']; ?>
 
 <section class="admin-grid">
+    <h2 class="sr-only">Liste des exercices</h2>
     <?php foreach ($data["exercises"] as $exercise) : ?>
         <article class="admin-card">
             <div class="admin-card-header">
@@ -50,7 +51,7 @@
                 <fieldset>
                     <label for="muscle_group_id">Groupe musculaire</label>
                     <select name="muscle_group_id" id="muscle_group_id" required>
-                        <option value=""></option>
+                        <option value="">Choisis un groupe musculaire</option>
                         <?php foreach ($data["muscleGroups"] as $group) : ?>
                             <option value="<?= $group->getId() ?>"><?= htmlspecialchars($group->getName()) ?></option>
                         <?php endforeach; ?>
@@ -60,7 +61,7 @@
                 <fieldset>
                     <label for="difficulty">Difficulté</label>
                     <select name="difficulty" id="difficulty" required>
-                        <option value=""></option>
+                        <option value="">Choisis une difficulté</option>
                         <option value="Débutant">Débutant</option>
                         <option value="Intermédiaire">Intermédiaire</option>
                         <option value="Avancé">Avancé</option>
