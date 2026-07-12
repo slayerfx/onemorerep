@@ -19,10 +19,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `onemorerep`
+-- Base de données : `onemorerep` (à créer et sélectionner avant l'import)
 --
-CREATE DATABASE IF NOT EXISTS `onemorerep` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `onemorerep`;
 
 -- --------------------------------------------------------
 

@@ -7,7 +7,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap"
 }).addTo(map);
 
-// Adds a marker for each gyms
+// Adds a marker for each gym
 function loadGyms(lat, lon) {
     const query = `[out:json];
         nwr["leisure"="fitness_centre"](around:5000,${lat},${lon});
@@ -42,7 +42,6 @@ if (navigator.geolocation) {
             loadGyms(userLat, userLon);
         },
         () => {
-            console.log("Géolocalisation indisponible, position par défaut utilisée.");
             loadGyms(defaultLat, defaultLon);
         }
     );

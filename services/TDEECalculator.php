@@ -2,7 +2,7 @@
 
 class TDEECalculator
 {
-    // Mifflin-St Jeor formula: 
+    // Mifflin-St Jeor formula
     public function calculateBmr(string $sex, int $age, float $weight, float $height): float
     {
         $bmr = (10 * $weight) + (6.25 * $height) - (5 * $age);

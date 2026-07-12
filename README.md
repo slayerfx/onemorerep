@@ -55,19 +55,54 @@ DB_PASSWORD=
 
 4. Importer la base de données
 
-Le fichier `onemorerep.sql` crée lui-même la base `onemorerep` puis la remplit (5 tables + jeu de données de test). Il peut être réimporté à tout moment pour réinitialiser la base à zéro.
+Créer d'abord une base de données vide nommée `onemorerep`, puis y importer le fichier `onemorerep.sql` (5 tables + jeu de données de test). Chaque table étant recréée via `DROP TABLE IF EXISTS`, le fichier peut être réimporté à tout moment pour réinitialiser la base à zéro.
 
-Dans phpMyAdmin : depuis l'accueil du serveur, onglet « Importer », sélectionner `onemorerep.sql` puis exécuter.
+Dans phpMyAdmin : créer la base `onemorerep` (onglet « Bases de données »), la sélectionner, puis onglet « Importer », choisir `onemorerep.sql` et exécuter.
 
 En ligne de commande :
 
 ```bash
-mysql -u root -p < onemorerep.sql
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS onemorerep"
+mysql -u root -p onemorerep < onemorerep.sql
 ```
 
 5. Lancer le serveur local
 
 Placer le projet dans le dossier de votre serveur local (ex : `C:\laragon\www\onemorerep`) et accéder à `http://localhost/onemorerep`.
+
+## Déploiement en production (InfinityFree)
+
+Le site est hébergé sur InfinityFree, un hébergement mutualisé gratuit (PHP + MySQL + certificat SSL inclus). Le transfert des fichiers se fait via FileZilla en FTP. Vérifier dans le panneau InfinityFree que la version PHP sélectionnée est bien une 8.x.
+
+1. Créer la base de données distante
+
+Dans le panneau InfinityFree, section « MySQL Databases », créer une base. InfinityFree impose un nom préfixé (ex : `if0_XXXXXXX_onemorerep`) et fournit l'hôte MySQL, l'utilisateur et le mot de passe à réutiliser dans le `.env`.
+
+2. Importer le jeu de données
+
+Dans le phpMyAdmin d'InfinityFree, sélectionner la base créée à l'étape 1, onglet « Importer », choisir `onemorerep.sql` et exécuter. Le fichier s'importe directement dans la base sélectionnée (il ne contient pas de `CREATE DATABASE`).
+
+3. Transférer les fichiers via FileZilla
+
+Récupérer les identifiants FTP dans le panneau InfinityFree (hôte FTP, utilisateur, mot de passe), puis se connecter avec FileZilla. Transférer tout le contenu du projet dans le dossier `htdocs/` du serveur.
+
+Le dossier `vendor/` (dépendances Composer) doit aussi être transféré : le plan gratuit InfinityFree ne permet pas de lancer `composer install`. Les dossiers `docs/`, `tests/` et `.git/` ne sont pas nécessaires en production.
+
+4. Créer le fichier `.env` de production
+
+Le `.env` n'est pas versionné (il est dans le `.gitignore`), il n'est donc pas dans le dépôt. Le créer directement sur le serveur (ou le transférer via FileZilla) avec les identifiants MySQL fournis par InfinityFree :
+
+```
+DB_HOST=sqlXXX.infinityfree.com
+DB_NAME=if0_XXXXXXX_onemorerep
+DB_CHARSET=utf8mb4
+DB_USER=if0_XXXXXXX
+DB_PASSWORD=votre_mot_de_passe
+```
+
+5. Tester en production
+
+Accéder à l'URL du site (sous-domaine InfinityFree) et vérifier le parcours complet : accueil et carte, liste et filtres d'exercices, inscription et connexion, création d'un programme, calculateur TDEE. Remplacer enfin le mot de passe du compte administrateur par un mot de passe privé.
 
 ## Comptes de test
 

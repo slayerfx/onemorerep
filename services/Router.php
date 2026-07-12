@@ -12,7 +12,7 @@ class Router
                 $controller = new HomeController();
                 $controller->index();
                 break;
-            
+
             case "exercises":
                 $controller = new ExerciseController();
                 $controller->index();
