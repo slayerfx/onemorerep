@@ -4,23 +4,20 @@ Forge ton programme, forge ton corps.
 
 Site de musculation permettant de consulter une bibliothèque d'exercices, créer des programmes d'entraînement personnalisés et calculer sa dépense énergétique journalière (TDEE).
 
+**🔗 Site en ligne :** https://onemorerep.infinityfree.io
+
 Projet de fin de formation - Louenn Penanc'hoat, BRE05 3W Academy 
 
 ## Stack technique
 
 - PHP 8.x (architecture MVC sans framework)
-- MySQL via PDO (requêtes préparées)
+- MySQL 8.x via PDO (requêtes préparées)
 - Templates .phtml (layout + partials)
 - CSS natif (mobile-first, Flexbox, Grid)
 - JavaScript vanilla (Fetch API)
 - Composer (vlucas/phpdotenv)
 
-## Prérequis
-
-- PHP 8.x
-- MySQL 8.x
-- Composer
-- Un serveur local (Laragon, WAMP, XAMPP ou MAMP)
+Pour l'installer en local : PHP 8.x, MySQL 8.x, Composer et un serveur local (Laragon, WAMP, XAMPP ou MAMP).
 
 ## Installation en local
 
@@ -55,16 +52,7 @@ DB_PASSWORD=
 
 4. Importer la base de données
 
-Créer d'abord une base de données vide nommée `onemorerep`, puis y importer le fichier `onemorerep.sql` (5 tables + jeu de données de test). Chaque table étant recréée via `DROP TABLE IF EXISTS`, le fichier peut être réimporté à tout moment pour réinitialiser la base à zéro.
-
-Dans phpMyAdmin : créer la base `onemorerep` (onglet « Bases de données »), la sélectionner, puis onglet « Importer », choisir `onemorerep.sql` et exécuter.
-
-En ligne de commande :
-
-```bash
-mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS onemorerep"
-mysql -u root -p onemorerep < onemorerep.sql
-```
+Dans phpMyAdmin : créer une base nommée `onemorerep` (onglet « Bases de données »), la sélectionner, puis onglet « Importer », choisir `onemorerep.sql` et exécuter. Le fichier contient 5 tables + un jeu de données de test ; chaque table étant recréée via `DROP TABLE IF EXISTS`, il peut être réimporté à tout moment pour réinitialiser la base.
 
 5. Lancer le serveur local
 
