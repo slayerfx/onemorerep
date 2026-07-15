@@ -20,7 +20,6 @@ class UserManager extends AbstractManager
             $row["email"],
             $row["password"],
             $row["role"],
-            $row["tdee"],
             $row["created_at"],
             $row["id"]
         );

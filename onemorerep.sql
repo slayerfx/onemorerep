@@ -168,7 +168,6 @@ CREATE TABLE `users` (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `role` enum('user','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'user',
-  `tdee` int DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -176,9 +175,9 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `role`, `tdee`, `created_at`) VALUES
-(5, 'louenn@onemorerep.fr', '$2y$10$tKIVH6GWR6o080kY1xXoXeGotgw6JobCDlO5nGoVZwYn17ObWR2ye', 'admin', NULL, '2026-06-09 18:09:55'),
-(7, 'sarah@test.fr', '$2y$10$/2XSmpeelUgKnm62JHrY7eqZUwwiFeZTW2RUoyeVhhcXht7i9W2Iu', 'user', NULL, '2026-06-09 18:17:12');
+INSERT INTO `users` (`id`, `email`, `password`, `role`, `created_at`) VALUES
+(5, 'louenn@onemorerep.fr', '$2y$10$tKIVH6GWR6o080kY1xXoXeGotgw6JobCDlO5nGoVZwYn17ObWR2ye', 'admin', '2026-06-09 18:09:55'),
+(7, 'sarah@test.fr', '$2y$10$/2XSmpeelUgKnm62JHrY7eqZUwwiFeZTW2RUoyeVhhcXht7i9W2Iu', 'user', '2026-06-09 18:17:12');
 
 --
 -- Index pour les tables déchargées
