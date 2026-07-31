@@ -1,6 +1,11 @@
 <section class="page-header">
     <h1>Gestion des exercices</h1>
     <p><?= count($data["exercises"]) ?> exercices au total</p>
+
+    <?php if (isset($_SESSION["error-message"])) : ?>
+        <p class="error-message"><?= htmlspecialchars($_SESSION["error-message"]) ?></p>
+        <?php unset($_SESSION["error-message"]); ?>
+    <?php endif; ?>
 </section>
 
 <?php $badges = ['Débutant' => 'beginner', 'Intermédiaire' => 'intermediate', 'Avancé' => 'advanced']; ?>
@@ -33,11 +38,6 @@
 <section class="admin-form">
     <div class="card">
         <h2>Ajouter un exercice</h2>
-
-        <?php if (isset($_SESSION["error-message"])) : ?>
-            <p class="error-message"><?= htmlspecialchars($_SESSION["error-message"]) ?></p>
-            <?php unset($_SESSION["error-message"]); ?>
-        <?php endif; ?>
 
         <form action="index.php?route=admin-create-exercise" method="post">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION["csrf_token"]) ?>">

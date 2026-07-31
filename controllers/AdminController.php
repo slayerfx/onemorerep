@@ -62,7 +62,12 @@ class AdminController extends AbstractController
         }
 
         $id = (int) $_POST["id"];
-        $this->exerciseManager->delete($id);
+
+        try {
+            $this->exerciseManager->delete($id);
+        } catch (PDOException $e) {
+            $_SESSION["error-message"] = "Cet exercice est utilisé dans un programme et ne peut pas être supprimé.";
+        }
 
         $this->redirect("admin-exercises");
     }

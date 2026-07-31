@@ -566,6 +566,11 @@ fieldset textarea:focus {
   margin-bottom: 1.5rem;
 }
 
+.page-header .error-message {
+  color: var(--color-error);
+  opacity: 1;
+}
+
 .auth .btn {
   margin-top: 0.5rem;
 }
@@ -822,7 +827,6 @@ footer a {
   padding: 0.4rem 1rem;
   border-radius: 1.5rem;
 }
-
 
 /* ===== PROGRAM FORM ===== */
 .program-form-section {
