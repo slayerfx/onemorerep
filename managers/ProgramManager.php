@@ -14,6 +14,16 @@ class ProgramManager extends AbstractManager
 
         $programs = [];
 
+        $queryExercises = $this->db->prepare(
+            "SELECT pe.id AS program_exercises_id, pe.sets, pe.reps, pe.weight, pe.rest_time,
+                    e.id AS exercise_id, e.name, e.description, e.difficulty, e.image,
+                    mg.id AS muscle_group_id, mg.name AS muscle_group_name
+             FROM program_exercises pe
+             JOIN exercises e ON pe.exercise_id = e.id
+             JOIN muscle_groups mg ON e.muscle_group_id = mg.id
+             WHERE pe.program_id = :programId"
+        );
+
         foreach ($results as $row) {
             $program = new Program(
                 $row["name"],
@@ -23,15 +33,6 @@ class ProgramManager extends AbstractManager
                 $row["id"]
             );
 
-            $queryExercises = $this->db->prepare(
-                "SELECT pe.id AS program_exercises_id, pe.sets, pe.reps, pe.weight, pe.rest_time,
-                        e.id AS exercise_id, e.name, e.description, e.difficulty, e.image,
-                        mg.id AS muscle_group_id, mg.name AS muscle_group_name
-                 FROM program_exercises pe
-                 JOIN exercises e ON pe.exercise_id = e.id
-                 JOIN muscle_groups mg ON e.muscle_group_id = mg.id
-                 WHERE pe.program_id = :programId"
-            );
             $queryExercises->execute(["programId" => $row["id"]]);
             $resultsExercises = $queryExercises->fetchAll(PDO::FETCH_ASSOC);
 
@@ -137,11 +138,12 @@ class ProgramManager extends AbstractManager
 
         $programId = $this->db->lastInsertId();
 
+        $queryExercise = $this->db->prepare(
+            "INSERT INTO program_exercises (program_id, exercise_id, sets, reps, weight, rest_time)
+             VALUES (:programId, :exerciseId, :sets, :reps, :weight, :restTime)"
+        );
+
         foreach ($program->getProgramExercises() as $programExercise) {
-            $queryExercise = $this->db->prepare(
-                "INSERT INTO program_exercises (program_id, exercise_id, sets, reps, weight, rest_time)
-                 VALUES (:programId, :exerciseId, :sets, :reps, :weight, :restTime)"
-            );
             $queryExercise->execute([
                 "programId" => $programId,
                 "exerciseId" => $programExercise->getExercise()->getId(),
@@ -168,11 +170,12 @@ class ProgramManager extends AbstractManager
         );
         $queryDelete->execute(["programId" => $program->getId()]);
 
+        $queryExercise = $this->db->prepare(
+            "INSERT INTO program_exercises (program_id, exercise_id, sets, reps, weight, rest_time)
+             VALUES (:programId, :exerciseId, :sets, :reps, :weight, :restTime)"
+        );
+
         foreach ($program->getProgramExercises() as $programExercise) {
-            $queryExercise = $this->db->prepare(
-                "INSERT INTO program_exercises (program_id, exercise_id, sets, reps, weight, rest_time)
-                 VALUES (:programId, :exerciseId, :sets, :reps, :weight, :restTime)"
-            );
             $queryExercise->execute([
                 "programId" => $program->getId(),
                 "exerciseId" => $programExercise->getExercise()->getId(),
