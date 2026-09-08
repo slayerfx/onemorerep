@@ -1,42 +1,48 @@
 # OneMoreRep
 
-Forge ton programme, forge ton corps.
+[![CI](https://github.com/slayerfx/onemorerep/actions/workflows/ci.yml/badge.svg)](https://github.com/slayerfx/onemorerep/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Site de musculation permettant de consulter une bibliothèque d'exercices, créer des programmes d'entraînement personnalisés et calculer sa dépense énergétique journalière (TDEE).
+Forge your program, forge your body.
 
-**🔗 Site en ligne :** https://onemorerep.infinityfree.io
+Strength training site: browse an exercise library, build custom workout programs
+and compute your total daily energy expenditure (TDEE).
 
-Projet de fin de formation - Louenn Penanc'hoat, BRE05 3W Academy 
+**🔗 Live site:** https://onemorerep.infinityfree.io
 
-## Stack technique
+Final project of my training — Louenn Penanc'hoat, BRE05 3W Academy
 
-- PHP 8.x (architecture MVC sans framework)
-- MySQL 8.x via PDO (requêtes préparées)
-- Templates .phtml (layout + partials)
-- CSS natif (mobile-first, Flexbox, Grid)
-- JavaScript vanilla (Fetch API)
+## Tech stack
+
+- PHP 8.3+ (MVC architecture, no framework)
+- MySQL 8.x through PDO (prepared statements)
+- `.phtml` templates (layout + partials)
+- Native CSS (mobile-first, Flexbox, Grid)
+- Vanilla JavaScript (Fetch API)
 - Composer (vlucas/phpdotenv)
+- PHPUnit for the unit tests
 
-Pour l'installer en local : PHP 8.x, MySQL 8.x, Composer et un serveur local (Laragon, WAMP, XAMPP ou MAMP).
+To run it locally you need PHP 8.3 or later, MySQL 8.x, Composer and a local
+server (Laragon, WAMP, XAMPP or MAMP).
 
-## Installation en local
+## Local installation
 
-1. Cloner le dépôt
+**1. Clone the repository**
 
 ```bash
 git clone https://github.com/slayerfx/onemorerep.git
 cd onemorerep
 ```
 
-2. Installer les dépendances PHP
+**2. Install the PHP dependencies**
 
 ```bash
 composer install
 ```
 
-3. Créer le fichier d'environnement
+**3. Create the environment file**
 
-Copier le fichier `.env.example` en `.env` et remplir avec vos identifiants de base de données.
+Copy `.env.example` to `.env` and fill in your database credentials.
 
 ```bash
 cp .env.example .env
@@ -50,84 +56,70 @@ DB_USER=root
 DB_PASSWORD=
 ```
 
-4. Importer la base de données
+**4. Import the database**
 
-Dans phpMyAdmin : créer une base nommée `onemorerep` (onglet « Bases de données »), la sélectionner, puis onglet « Importer », choisir `onemorerep.sql` et exécuter. Le fichier contient 5 tables + un jeu de données de test ; chaque table étant recréée via `DROP TABLE IF EXISTS`, il peut être réimporté à tout moment pour réinitialiser la base.
+In phpMyAdmin: create a database named `onemorerep` (the "Databases" tab), select
+it, then the "Import" tab, pick `onemorerep.sql` and run it. The file holds 5
+tables plus a set of test data; since every table is recreated through
+`DROP TABLE IF EXISTS`, it can be re-imported at any time to reset the database.
 
-5. Lancer le serveur local
+**5. Start the local server**
 
-Placer le projet dans le dossier de votre serveur local (ex : `C:\laragon\www\onemorerep`) et accéder à `http://localhost/onemorerep`.
+Put the project in your local server's folder (e.g. `C:\laragon\www\onemorerep`)
+and open `http://localhost/onemorerep`.
 
-## Déploiement en production (InfinityFree)
+## Test accounts
 
-Le site est hébergé sur InfinityFree, un hébergement mutualisé gratuit (PHP + MySQL + certificat SSL inclus). Le transfert des fichiers se fait via FileZilla en FTP. Vérifier dans le panneau InfinityFree que la version PHP sélectionnée est bien une 8.x.
-
-1. Créer la base de données distante
-
-Dans le panneau InfinityFree, section « MySQL Databases », créer une base. InfinityFree impose un nom préfixé (ex : `if0_XXXXXXX_onemorerep`) et fournit l'hôte MySQL, l'utilisateur et le mot de passe à réutiliser dans le `.env`.
-
-2. Importer le jeu de données
-
-Dans le phpMyAdmin d'InfinityFree, sélectionner la base créée à l'étape 1, onglet « Importer », choisir `onemorerep.sql` et exécuter. Le fichier s'importe directement dans la base sélectionnée (il ne contient pas de `CREATE DATABASE`).
-
-3. Transférer les fichiers via FileZilla
-
-Récupérer les identifiants FTP dans le panneau InfinityFree (hôte FTP, utilisateur, mot de passe), puis se connecter avec FileZilla. Transférer tout le contenu du projet dans le dossier `htdocs/` du serveur.
-
-Le dossier `vendor/` (dépendances Composer) doit aussi être transféré : le plan gratuit InfinityFree ne permet pas de lancer `composer install`. Les dossiers `tests/`, `.github/` et `.git/` ne sont pas nécessaires en production.
-
-4. Créer le fichier `.env` de production
-
-Le `.env` n'est pas versionné (il est dans le `.gitignore`), il n'est donc pas dans le dépôt. Le créer directement sur le serveur (ou le transférer via FileZilla) avec les identifiants MySQL fournis par InfinityFree :
-
-```
-DB_HOST=sqlXXX.infinityfree.com
-DB_NAME=if0_XXXXXXX_onemorerep
-DB_CHARSET=utf8mb4
-DB_USER=if0_XXXXXXX
-DB_PASSWORD=votre_mot_de_passe
-```
-
-5. Tester en production
-
-Accéder à l'URL du site (sous-domaine InfinityFree) et vérifier le parcours complet : accueil et carte, liste et filtres d'exercices, inscription et connexion, création d'un programme, calculateur TDEE. Remplacer enfin le mot de passe du compte administrateur par un mot de passe privé.
-
-## Comptes de test
-
-| Rôle | Email | Mot de passe |
-|------|-------|--------------|
+| Role | Email | Password |
+|------|-------|----------|
 | Admin | louenn@onemorerep.fr | Test1234! |
-| Utilisateur | sarah@test.fr | Test1234! |
+| User | sarah@test.fr | Test1234! |
 
-Ces identifiants servent uniquement à la démo en local. En production, le mot de passe de l'administrateur doit être remplacé par un mot de passe privé qui n'apparaît jamais dans le dépôt.
+These credentials are for the local demo only. In production the administrator
+password must be replaced with a private one that never appears in the
+repository.
 
 ## Tests
 
-Les tests unitaires (PHPUnit) couvrent le calcul du TDEE selon la formule Mifflin-St Jeor (cas homme et femme). Pour les lancer :
+The unit tests (PHPUnit) cover the TDEE computation following the Mifflin-St Jeor
+formula, for both the male and female cases. To run them:
 
 ```bash
 composer test
 ```
 
-## Structure du projet
+CI replays them on PHP 8.3 and 8.4 on every push.
+
+## Deployment
+
+The site is hosted on InfinityFree. The full procedure — remote database, FTP
+transfer, production `.env` — sits in
+[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+
+## Project layout
 
 ```
 onemorerep/
-├── index.php              Point d'entrée unique
-├── config/                Configuration et autoload
-├── controllers/           Controllers MVC
-├── managers/              Accès base de données (PDO)
-├── models/                Classes PHP (objets métier)
-├── services/              Router et services
-├── templates/             Templates .phtml (layout, partials, pages)
+├── index.php              Single entry point
+├── config/                Configuration and autoload
+├── controllers/           MVC controllers
+├── managers/              Database access (PDO)
+├── models/                PHP classes (domain objects)
+├── services/              Router and services
+├── templates/             .phtml templates (layout, partials, pages)
 ├── assets/                CSS, JavaScript, images
-└── onemorerep.sql         Script SQL de la base de données
+├── tests/                 PHPUnit unit tests
+├── docs/                  Deployment procedure
+├── .github/workflows/     Continuous integration
+├── composer.json          Dependencies and the test script
+├── phpunit.xml            PHPUnit configuration
+└── onemorerep.sql         Database SQL script
 ```
 
 ## Licence
 
-Le code de ce dépôt est publié sous licence [MIT](LICENSE).
+The code in this repository is published under the [MIT](LICENSE) licence.
 
-Les photographies de `assets/images/` proviennent de banques d'images et restent
-soumises à leurs licences respectives : elles ne sont pas couvertes par la licence
-MIT du dépôt.
+The photographs in `assets/images/` come from stock image banks and remain
+subject to their own licences: they are not covered by the repository's MIT
+licence.
