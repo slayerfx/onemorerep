@@ -74,7 +74,7 @@ Dans le phpMyAdmin d'InfinityFree, sélectionner la base créée à l'étape 1, 
 
 Récupérer les identifiants FTP dans le panneau InfinityFree (hôte FTP, utilisateur, mot de passe), puis se connecter avec FileZilla. Transférer tout le contenu du projet dans le dossier `htdocs/` du serveur.
 
-Le dossier `vendor/` (dépendances Composer) doit aussi être transféré : le plan gratuit InfinityFree ne permet pas de lancer `composer install`. Les dossiers `docs/`, `tests/` et `.git/` ne sont pas nécessaires en production.
+Le dossier `vendor/` (dépendances Composer) doit aussi être transféré : le plan gratuit InfinityFree ne permet pas de lancer `composer install`. Les dossiers `tests/`, `.github/` et `.git/` ne sont pas nécessaires en production.
 
 4. Créer le fichier `.env` de production
 
