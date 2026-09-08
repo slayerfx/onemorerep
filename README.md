@@ -123,3 +123,11 @@ onemorerep/
 ├── assets/                CSS, JavaScript, images
 └── onemorerep.sql         Script SQL de la base de données
 ```
+
+## Licence
+
+Le code de ce dépôt est publié sous licence [MIT](LICENSE).
+
+Les photographies de `assets/images/` proviennent de banques d'images et restent
+soumises à leurs licences respectives : elles ne sont pas couvertes par la licence
+MIT du dépôt.
