@@ -5,9 +5,9 @@
 
 Forge your program, forge your body.
 
-Strength training site: browse an exercise library, build custom workout programs,
-compute your total daily energy expenditure (TDEE) and find a gym near you on an
-interactive map.
+Strength training site: create an account, browse an exercise library, build custom
+workout programs, compute your total daily energy expenditure (TDEE) and find a gym
+near you on an interactive map. User and administrator roles are separated.
 
 **🔗 Live site:** https://onemorerep.infinityfree.io
 
@@ -22,6 +22,8 @@ Final project of my training — Louenn Penanc'hoat, BRE05 3W Academy
 - `.phtml` templates (layout + partials)
 - Native CSS (mobile-first, Flexbox, Grid)
 - Vanilla JavaScript (Fetch API)
+- Session-based authentication — `password_hash()` / `password_verify()`, an enforced
+  password policy, and separate user and administrator roles
 - Leaflet.js over OpenStreetMap tiles, with nearby gyms queried live from the
   [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
 - Composer (vlucas/phpdotenv)
